@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  
+  <meta charset="UTF-8" />
+  <title>별의 운세 심리테스트</title>
+  <style>
+    body, html {
+    margin: 0; padding: 0; height: 100%;
+    background: linear-gradient(to bottom, #0d0d2b, #1a1a4d);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    color: #fff;
+  }
+  /* 커튼 좌우 이미지 박스 */
+  #curtainLeft, #curtainRight {
+    position: fixed;
+    top: 0; 
+    width: 50vw; height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: 20;
+  }
+  #curtainLeft {
+    left: 0;
+    background-image: url('https://i.pinimg.com/736x/71/6e/98/716e98cbcd50ef68465687c8271299e6.jpg'); /* 왼쪽 커튼 이미지 */
+    animation: curtainOpenLeft 7s forwards;
+  }
+  #curtainRight {
+    right: 0;
+    background-image: url('https://i.pinimg.com/736x/71/6e/98/716e98cbcd50ef68465687c8271299e6.jpg'); /* 오른쪽 커튼 이미지 */
+    animation: curtainOpenRight 7s forwards;
+  }
+
+  /* 커튼 열리는 애니메이션 */
+  @keyframes curtainOpenLeft {
+    from { left: 0; }
+    to { left: -50vw; }
+  }
+  @keyframes curtainOpenRight {
+    from { right: 0; }
+    to { right: -50vw; }
+  }
+
+  /* 오프닝 텍스트 박스 */
+  #openingTextBox {
+    position: fixed;
+    top: 40vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    user-select: none;
+  }
+
+  #openingText {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow:
+     0 0 10px #fff,
+  0 0 20px #d8b4fe,
+  0 0 30px #d8b4fe,
+  0 0 40px #a78bfa,
+  0 0 50px #a78bfa;
+
+    animation: glow 5s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow:
+       0 0 10px #fff,
+  0 0 20px #d8b4fe,
+  0 0 30px #d8b4fe,
+  0 0 40px #a78bfa,
+  0 0 50px #a78bfa;
+
+    }
+    to {
+      text-shadow:
+        0 0 10px #fff,
+  0 0 20px #d8b4fe,
+  0 0 30px #d8b4fe,
+  0 0 40px #a78bfa,
+  0 0 50px #a78bfa;
+
+    }
+  }
+
+  /* 시작 버튼 스타일 */
+  #startBtn {
+    margin-top: 2rem;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.3rem;
+    color: white;
+   background: linear-gradient(45deg, #d8b4fe, #a78bfa);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow:
+  0 0 10px #d8b4fe,
+  0 0 20px #a78bfa;
+
+    transition: background 0.3s ease;
+  }
+  #startBtn:hover {
+    background: linear-gradient(45deg, #7873f5, #ff6ec4);
+  box-shadow:
+  0 0 10px #d8b4fe,
+  0 0 20px #a78bfa;
+
+  }
+
+  /* 첫 화면 숨김 */
+  #mainContent {
+    display: none;
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ddd;
+    background: radial-gradient(circle at center, #222233, #0d0d1a);
+    height: 100vh;
+  }
+
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard&display=swap');
+
+    /* 전체 배경 은하수 */
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Pretendard', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+      text-align: center;
+      background: #0b0c1a; /* 은하수 밤하늘 기본 색상 */
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* 반짝이는 별 배경 캔버스 */
+    #stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    }
+
+    /* 반짝임 애니메이션 */
+    @keyframes twinkle {
+      0%, 100% {opacity: 1;}
+      50% {opacity: 0.3;}
+    }
+
+    /* 카드 스타일 */
+    .card {
+      position: relative;
+      z-index: 10;
+      margin: 80px auto 40px auto;
+      padding: 30px 25px;
+      width: 90%;
+      max-width: 460px;
+      background: rgba(10, 10, 25, 0.75);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(130, 90, 220, 0.8);
+      backdrop-filter: blur(15px);
+      animation: fadeInUp 0.8s ease-out;
+      user-select: none;
+    }
+
+    h2, h3 {
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px #ad8cff, 0 0 20px #7b58d6;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      color: #ddd;
+      text-shadow: 0 0 5px #8169d6;
+    }
+
+    button, .choice {
+      margin: 10px 6px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 14px;
+      background-color: #7b58d6;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 8px #916fe8;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover, .choice:hover {
+      background-color: #ad8cff;
+      box-shadow: 0 0 16px #c1a8ff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-box {
+      margin: 15px 0;
+      padding: 15px;
+      background-color: rgba(150, 130, 220, 0.15);
+      border-radius: 15px;
+      backdrop-filter: blur(8px);
+      text-align: left;
+      font-size: 1rem;
+    }
+
+    .share-btn {
+      background-color: #1DA1F2;
+      margin-top: 20px;
+    }
+
+    .share-btn:hover {
+      background-color: #0d8ddb;
+    }
+
+    .icon-img {
+      width: 36px;
+      height: 36px;
+      vertical-align: middle;
+      margin-right: 10px;
+      filter: drop-shadow(0 0 2px #9b8fff);
+    }
+#result-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+    #result-wrapper {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 500px;
+  z-index: 10;
+}
+  </style>
+</head>
+<body>
+  <!-- 왼쪽 커튼 -->
+  <div id="curtainLeft"></div>
+  <!-- 오른쪽 커튼 -->
+  <div id="curtainRight"></div>
+
+  <!-- 오프닝 텍스트 & 버튼 -->
+  <div id="openingTextBox">
+    <div id="openingText">운세 보러 가시겠습니까?</div>
+    <button id="startBtn">시작하기</button>
+  </div>
+
+  <!-- 첫 화면 -->
+  <div id="mainContent">
+    <h1>운세 테스트에 오신 것을 환영합니다!</h1>
+    <!-- 운세 테스트 UI를 여기 넣으면 됨 -->
+
+  <!-- 반짝이는 별 캔버스 -->
+  <canvas id="stars"></canvas>
+
+ <!-- 표지 -->
+  <div class="card" id="intro">
+    <h2>🌌 오늘의 별 운세</h2>
+    <p>은하수 아래 펼쳐지는<br>나만의 신비로운 운세를 만나보세요</p>
+    <button onclick="startTest()">운세 보러 가기</button>
+  </div>
+
+<!-- 질문카드 -->
+  <div class="card hidden" id="question"></div>
+
+    <!-- 진행도 바 -->
+    <div id="progress-container">
+  <div id="progress-bar"></div>
+  <div id="progress-text">1 / 5</div>
+</div>
+
+
+  <!-- 결과 카드 -->
+ <div id="result-wrapper" class="hidden">
+  <div class="card" id="result"></div>
+</div>
+    
+
+  
+
+  <script>
+    const curtainLeft = document.getElementById('curtainLeft');
+    const curtainRight = document.getElementById('curtainRight');
+    const mainContent = document.getElementById('mainContent');
+    const startBtn = document.getElementById('startBtn');
+    const openingTextBox = document.getElementById('openingTextBox');
+
+    startBtn.addEventListener('click', () => {
+      // 커튼 닫는 애니메이션 (역방향)
+      curtainLeft.style.animation = 'curtainCloseLeft 2.5s forwards';
+      curtainRight.style.animation = 'curtainCloseRight 2.5s forwards';
+
+      // 텍스트 박스 점점 사라지기 (페이드아웃)
+      openingTextBox.style.transition = 'opacity 3s ease';
+      openingTextBox.style.opacity = '0';
+
+      setTimeout(() => {
+        curtainLeft.style.display = 'none';
+        curtainRight.style.display = 'none';
+        openingTextBox.style.display = 'none';
+
+        mainContent.style.display = 'block';
+      }, 1000);
+    });
+
+    // 커튼 닫히는 애니메이션 추가 (좌우 닫힘)
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+      @keyframes curtainCloseLeft {
+        from { left: -50vw; }
+        to { left: 0; }
+      }
+    `, styleSheet.cssRules.length);
+
+    styleSheet.insertRule(`
+      @keyframes curtainCloseRight {
+        from { right: -50vw; }
+        to { right: 0; }
+      }
+    `, styleSheet.cssRules.length);
+    // 별 반짝임 효과 구현
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let stars = [];
+
+    function initStars() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      stars = [];
+      for(let i=0; i<150; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.1 + 0.3,
+          alpha: Math.random(),
+          delta: 0.005 + Math.random() * 0.02
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, width, height);
+      stars.forEach(star => {
+        star.alpha += star.delta;
+        if(star.alpha <= 0) {
+          star.alpha = 0;
+          star.delta = -star.delta;
+        }
+        if(star.alpha >= 1) {
+          star.alpha = 1;
+          star.delta = -star.delta;
+        }
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'white';
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener('resize', () => {
+      initStars();
+    });
+
+    initStars();
+    drawStars();
+
+    /* — 기존 운세 테스트 스크립트 — */
+
+    const questions = [
+      {
+        question: "당신은 현재 꿈을 꾸고 있습니다. <br> 꿈속에서 걷고 있는 곳은?",
+        choices: [
+          { text: "고요한 호수 옆", img: "https://img.icons8.com/ios-filled/50/ffffff/lake.png" },
+          { text: "별빛 은하수 밑", img: "https://img.icons8.com/ios-filled/50/ffffff/galaxy.png" },
+          { text: "안개가 낀 숲속", img: "https://img.icons8.com/ios-filled/50/ffffff/forest.png" },
+          { text: "불빛 흐린 도시", img: "https://img.icons8.com/ios-filled/50/ffffff/city.png" }
+        ]
+      },
+      {
+        question: "하늘에서 갑자기 쏟아진 것은?",
+        choices: [
+          { text: "별똥별", img: "https://img.icons8.com/ios-filled/50/ffffff/comet.png" },
+          { text: "은하수", img: "https://img.icons8.com/ios-filled/50/ffffff/galaxy.png" },
+          { text: "돈다발", img: "https://img.icons8.com/ios-filled/50/ffffff/money-bag.png" },
+          { text: "편지지", img: "https://img.icons8.com/ios-filled/50/ffffff/mail.png" }
+        ]
+      },
+      {
+        question: "꿈속에서 만난 존재는?",
+        choices: [
+          { text: "까마귀", img: "https://img.icons8.com/ios-filled/50/ffffff/crow.png" },
+          { text: "눈사람", img: "https://img.icons8.com/ios-filled/50/ffffff/snowman.png" },
+          { text: "간호사", img: "https://img.icons8.com/ios-filled/50/ffffff/nurse-female.png" },
+          { text: "강아지", img: "https://img.icons8.com/ios-filled/50/ffffff/dog.png" }
+        ]
+      },
+      {
+        question: "그 존재가 건넨 말은?",
+        choices: [
+          { text: "깨어나면 다 잊게 될 거야" },
+          { text: "이건 시작에 불과한 거야" },
+          { text: "넌 이미 모든 걸 알고 있어" },
+          { text: "무엇이든 네가 정할 거야" }
+        ]
+      },
+      {
+        question: "당신이 마지막으로 떠오른 감정은?",
+        choices: [
+          { text: "편안함" },
+          { text: "그리움" },
+          { text: "두려움" },
+          { text: "기대감" }
+        ]
+      },
+    ];
+
+    const resultData = [
+      {
+        type: "별빛 타입",
+        text: "당신은 신비로운 직관을 가진 별빛 타입! 오늘은 감에 의존해도 좋은 날이에요.",
+        item: "🔮 아메시스트 목걸이",
+        mood: "✨ 예민하지만 직관력이 날카로워요",
+        background: "https://i.imgur.com/BNhXaYm.jpeg"
+      },
+      {
+        type: "달빛 타입",
+        text: "당신은 고요한 에너지를 품은 달빛 타입! 휴식이 큰 힘을 줄 거예요.",
+        item: "🌙 따뜻한 허브티",
+        mood: "😌 마음이 차분해지고 감성이 올라와요",
+        background: "https://i.imgur.com/hovbcO2.jpeg"
+      },
+      {
+        type: "별의 안내자 타입",
+        text: "당신은 현실을 꿰뚫는 별의 안내자 타입! 계획적으로 움직여보세요.",
+        item: "📓 깔끔한 다이어리",
+        mood: "🧠 이성적이고 분석적인 에너지가 강해요",
+        background: "https://i.imgur.com/yMGsBdL.jpeg"
+      },
+      {
+        type: "몽환가 타입",
+        text: "당신은 감성적인 몽환가 타입! 예술적 영감이 솟을 수 있어요.",
+        item: "🎨 빈 스케치북",
+        mood: "🌫️ 현실보단 꿈결 같은 느낌이 드는 하루",
+        background: "https://i.imgur.com/IiZsKhQ.jpeg"
+      }
+    ];
+
+    let current = 0;
+    let answers = [];
+
+    function startTest() {
+      current = 0;
+      answers = [];
+      document.getElementById('intro').classList.add('hidden');
+      document.getElementById('result').classList.add('hidden');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[current];
+      const container = document.getElementById('question');
+      container.innerHTML = `<h3>${q.question}</h3>`;
+      q.choices.forEach((choice, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.innerHTML = choice.img ? `<img src="${choice.img}" class="icon-img">${choice.text}` : choice.text;
+        btn.onclick = () => nextQuestion(index);
+        container.appendChild(btn);
+      });
+      container.classList.remove('hidden');
+    }
+
+    function nextQuestion(choiceIndex) {
+      answers.push(choiceIndex);
+      current++;
+      if (current >= questions.length) {
+        showResult();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showResult() {
+      
+      document.getElementById('result-wrapper').classList.remove('hidden');
+      document.getElementById('question').classList.add('hidden');
+      const result = document.getElementById('result');
+      const score = answers.reduce((a, b) => a + b, 0);
+      const data = resultData[score % resultData.length];
+
+      // 배경을 은하수 이미지로 변경하면서 별 캔버스 유지
+      document.body.style.background = `url('${data.background}') no-repeat center center fixed`;
+      document.body.style.backgroundSize = 'cover';
+
+      result.innerHTML = `
+  <h3>🌟 당신은 ${data.type}</h3>
+  <div id="result-image" style="
+    background-image: url(${data.background});
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 400px;
+
+  "></div>
+  <div class="result-box"><strong>🔮 운세:</strong> ${data.text}</div>
+  <div class="result-box"><strong>😊 오늘의 기분:</strong> ${data.mood}</div>
+  <div class="result-box"><strong>🎁 행운 아이템:</strong> ${data.item}</div>
+  <button onclick="shareResult()" class="share-btn">트위터로 공유하기</button>
+  <button onclick="restartTest()">다시 하기</button>
+`;
+
+      result.classList.remove('hidden');
+    }
+
+    function restartTest() {
+      document.getElementById('result-wrapper').classList.add('hidden');
+
+      document.body.style.background = '#0b0c1a'; // 기본 은하수 배경 복원
+      document.getElementById('result').classList.add('hidden');
+      document.getElementById('intro').classList.remove('hidden');
+    }
+
+    function shareResult() {
+      const result = document.getElementById('result').querySelector('h3').innerText;
+      const text = encodeURIComponent(`${result} - 오늘의 별 운세를 확인해보세요! 🌌`);
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+    }
+  function showQuestion() {
+  const q = questions[current];
+  const container = document.getElementById('question');
+  container.classList.remove('hidden');
+
+  container.innerHTML = `<h3>${q.question}</h3>`;
+  q.choices.forEach((choice, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.innerHTML = choice.img ? `<img src="${choice.img}" class="icon-img"> ${choice.text}` : choice.text;
+    btn.onclick = () => nextQuestion(index);
+    container.appendChild(btn);
+  });
+
+  // 뒤로가기 버튼 표시/숨김
+  const backBtn = document.getElementById('backBtn');
+  backBtn.classList.toggle('hidden', current === 0);
+}
+
+// 뒤로가기 버튼 클릭 이벤트 추가
+const backBtn = document.getElementById('backBtn');
+backBtn.addEventListener('click', () => {
+  if (current > 0) {
+    current--;
+    answers.pop();
+    showQuestion();
+  }
+});
+
+
+
+
+  </script>
+<script defer src="script.js"></script>
+    
+
+</body>
+</html>
