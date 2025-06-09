@@ -603,20 +603,7 @@ backBtn.addEventListener('click', () => {
       window.location.href = "fortune.html"; // 운세 보는 페이지 경로
     });
   });
-function doPost(e) {
-  Logger.log(e.parameter); // 요청 들어온 값 로그 보기
 
-  const sheet = SpreadsheetApp.openById("1JThz9T-YkEbW5ValdGl8AuDTQG5z6fNMkvRceRGGyLw")
-    .getSheetByName("Sheet1");
-
-  sheet.appendRow([
-    new Date(),
-    e.parameter.userAgent,
-    e.parameter.pageURL
-  ]);
-
-  return ContentService.createTextOutput("Success");
-}
 
 
 
