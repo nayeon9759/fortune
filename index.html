@@ -300,7 +300,8 @@
  <div id="result-wrapper" class="hidden">
   <div class="card" id="result"></div>
 </div>
-    
+<button id="start-button">운세 보러가기</button>
+
 
   
 
@@ -586,6 +587,23 @@ backBtn.addEventListener('click', () => {
     showQuestion();
   }
 });
+
+  document.getElementById("start-button").addEventListener("click", function () {
+    fetch("https://script.google.com/macros/s/AKfycbxZhG0SDWUKS77CuYQFWM0BK0iSndY-l_n4UIKcCeMcNF90ST1h0SOL2Dli4276af6lsA/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        userAgent: navigator.userAgent,
+        pageURL: window.location.href
+      })
+    }).then(() => {
+      // 여기에 다음 페이지 이동 코드 넣어도 됨
+      window.location.href = "fortune.html"; // 운세 보는 페이지 경로
+    });
+  });
+
 
 
 
